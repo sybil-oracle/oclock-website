@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>O'Clock — Classic Rock from Lower Austria</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Source+Sans+3:wght@300;400;600;700&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Source Sans 3', 'Segoe UI', sans-serif;
+    background: #EAA741;
+    color: #2c2418;
+  }
+
+  /* === LANG TOGGLE === */
+  .lang-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 200;
+    display: flex;
+    background: rgba(44, 36, 24, 0.9);
+    border-radius: 50px;
+    overflow: hidden;
+    border: 2px solid #8b7355;
+  }
+  .lang-toggle button {
+    background: transparent;
+    border: none;
+    color: #c4b69c;
+    padding: 8px 16px;
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    letter-spacing: 1px;
+    font-family: inherit;
+    transition: all 0.3s;
+  }
+  .lang-toggle button.active {
+    background: #8b2500;
+    color: #f5f0e8;
+  }
+
+  /* hide lang content */
+  [data-lang="de"] { display: none !important; }
+  body.lang-de [data-lang="de"] { display: initial !important; }
+  body.lang-de [data-lang="en"] { display: none !important; }
+  /* block-level elements */
+  div[data-lang="de"], p[data-lang="de"], section[data-lang="de"],
+  span[data-lang="de"], a[data-lang="de"], h1[data-lang="de"], h2[data-lang="de"],
+  h3[data-lang="de"], h4[data-lang="de"], li[data-lang="de"] { display: none !important; }
+  body.lang-de div[data-lang="de"], body.lang-de p[data-lang="de"],
+  body.lang-de section[data-lang="de"], body.lang-de a[data-lang="de"],
+  body.lang-de span[data-lang="de"], body.lang-de h1[data-lang="de"],
+  body.lang-de h2[data-lang="de"], body.lang-de h3[data-lang="de"],
+  body.lang-de h4[data-lang="de"], body.lang-de li[data-lang="de"] { display: block !important; }
+  body.lang-de span[data-lang="de"] { display: inline !important; }
+  body.lang-de a[data-lang="de"] { display: inline-block !important; }
+  body.lang-de .contact-form[data-lang="de"] { display: flex !important; }
+  body.lang-de div[data-lang="en"], body.lang-de p[data-lang="en"],
+  body.lang-de section[data-lang="en"], body.lang-de a[data-lang="en"],
+  body.lang-de span[data-lang="en"], body.lang-de h1[data-lang="en"],
+  body.lang-de h2[data-lang="en"], body.lang-de h3[data-lang="en"],
+  body.lang-de h4[data-lang="en"], body.lang-de li[data-lang="en"] { display: none !important; }
+
+
+  /* === HEADER / NAV === */
+  header {
+    background: #2c2418;
+    padding: 18px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 3px solid #8b2500;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 32px;
+    font-weight: 900;
+    color: #f5f0e8;
+    letter-spacing: 2px;
+  }
+  .logo span { color: #8b2500; }
+  nav {
+    padding-right: 100px;
+  }
+  nav a {
+    color: #c4b69c;
+    text-decoration: none;
+    margin-left: 30px;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-weight: 600;
+    transition: color 0.2s;
+  }
+  nav a:hover { color: #f5f0e8; }
+
+  /* === HERO === */
+  .hero {
+    background: #2c2418;
+    text-align: center;
+    padding: 80px 40px 100px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: radial-gradient(ellipse at center, rgba(139,37,0,0.15) 0%, transparent 70%);
+  }
+  .hero-placeholder {
+    width: 100%;
+    max-width: 750px;
+    height: 280px;
+    background: #3d3225;
+    border: 2px dashed #6b5b45;
+    border-radius: 8px;
+    margin: 0 auto 35px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8b7355;
+    font-size: 16px;
+    position: relative;
+  }
+  .hero h1 {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    letter-spacing: 8px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    color: #f5f0e8;
+    position: relative;
+  }
+  .hero .tagline {
+    font-size: 20px;
+    color: #c4b69c;
+    margin-bottom: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    font-weight: 300;
+    position: relative;
+  }
+  .hero .sub-tagline {
+    font-size: 15px;
+    color: #8b7355;
+    margin-bottom: 35px;
+    font-style: italic;
+    position: relative;
+  }
+  .cta-btn {
+    display: inline-block;
+    background: #8b2500;
+    color: #f5f0e8;
+    padding: 14px 45px;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    transition: background 0.2s;
+    position: relative;
+    border: 1px solid #a03000;
+  }
+  .cta-btn:hover { background: #a03000; }
+
+  /* === SECTIONS === */
+  section {
+    padding: 80px 40px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  section h2 {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px;
+    letter-spacing: 2px;
+    margin-bottom: 8px;
+    color: #2c2418;
+  }
+  section .subtitle {
+    color: #8b7355;
+    margin-bottom: 40px;
+    font-size: 15px;
+    letter-spacing: 1px;
+  }
+
+  /* Decorative divider */
+  .divider {
+    text-align: center;
+    padding: 0 40px;
+    max-width: 960px;
+    margin: 0 auto;
+  }
+  .divider::before {
+    content: '— ✦ —';
+    color: #c4b69c;
+    font-size: 18px;
+    letter-spacing: 8px;
+  }
+
+  /* === ABOUT === */
+  .about-content {
+    display: flex;
+    gap: 45px;
+    align-items: flex-start;
+  }
+  .about-photo {
+    width: 320px;
+    height: 320px;
+    background: #fff4e6;
+    border: 2px dashed #c4a060;
+    border-radius: 8px;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8b7355;
+    font-size: 14px;
+  }
+  .about-text p {
+    color: #5a4a38;
+    line-height: 1.9;
+    margin-bottom: 15px;
+    font-size: 16px;
+  }
+  .members {
+    list-style: none;
+    margin-top: 15px;
+  }
+  .members li {
+    padding: 8px 0;
+    border-bottom: 1px solid #dcc8a0;
+    color: #5a4a38;
+    font-size: 15px;
+  }
+  .members li:last-child { border-bottom: none; }
+
+  /* === MUSIC === */
+  .tracks {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 25px;
+  }
+  .track-card {
+    background: #fff8ee;
+    border-radius: 8px;
+    padding: 25px;
+    border: 1px solid #dcc8a0;
+  }
+  .track-card .album-art {
+    width: 100%;
+    height: 150px;
+    background: #f0e0c8;
+    border: 2px dashed #c4a060;
+    border-radius: 6px;
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8b7355;
+    font-size: 13px;
+  }
+  .track-card h3 {
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 5px;
+    color: #2c2418;
+  }
+  .track-card p { color: #8b7355; font-size: 14px; }
+  .play-bar {
+    margin-top: 14px;
+    height: 4px;
+    background: #dcc8a0;
+    border-radius: 2px;
+    position: relative;
+  }
+  .play-bar::after {
+    content: '';
+    position: absolute;
+    left: 0; top: 0;
+    width: 40%;
+    height: 100%;
+    background: #8b2500;
+    border-radius: 2px;
+  }
+  .streaming-note {
+    margin-top: 25px;
+    text-align: center;
+    color: #8b7355;
+    font-size: 14px;
+    font-style: italic;
+  }
+
+  /* === SHOWS === */
+  .shows-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .show-item {
+    background: #fff8ee;
+    border-radius: 8px;
+    padding: 22px 28px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid #dcc8a0;
+    transition: border-color 0.2s;
+  }
+  .show-item:hover { border-color: #8b2500; }
+  .show-date {
+    font-size: 13px;
+    color: #8b2500;
+    font-weight: 700;
+    min-width: 130px;
+    letter-spacing: 1px;
+  }
+  .show-venue { flex: 1; margin-left: 20px; }
+  .show-venue h4 {
+    font-family: 'Playfair Display', serif;
+    margin-bottom: 3px;
+    color: #2c2418;
+  }
+  .show-venue p { color: #8b7355; font-size: 14px; }
+  .ticket-btn {
+    background: transparent;
+    border: 2px solid #8b2500;
+    color: #8b2500;
+    padding: 8px 22px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.2s;
+  }
+  .ticket-btn:hover {
+    background: #8b2500;
+    color: #f5f0e8;
+  }
+
+  /* === GALLERY === */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .gallery-item {
+    height: 190px;
+    background: #fff4e6;
+    border: 2px dashed #c4a060;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #8b7355;
+    font-size: 13px;
+  }
+  .gallery-item:first-child {
+    grid-column: span 2;
+    grid-row: span 2;
+    height: 100%;
+  }
+
+  /* === CONTACT === */
+  .contact-content {
+    display: flex;
+    gap: 45px;
+  }
+  .contact-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .contact-form input, .contact-form textarea {
+    background: #fff8ee;
+    border: 1px solid #dcc8a0;
+    border-radius: 6px;
+    padding: 13px 16px;
+    color: #2c2418;
+    font-size: 14px;
+    font-family: inherit;
+    transition: border-color 0.2s;
+  }
+  .contact-form input:focus, .contact-form textarea:focus {
+    outline: none;
+    border-color: #8b2500;
+  }
+  .contact-form textarea { height: 120px; resize: vertical; }
+  .contact-form button {
+    background: #8b2500;
+    color: #f5f0e8;
+    border: none;
+    padding: 14px;
+    border-radius: 4px;
+    font-weight: 700;
+    font-size: 14px;
+    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: inherit;
+    transition: background 0.2s;
+  }
+  .contact-form button:hover { background: #a03000; }
+  .contact-info {
+    flex: 1;
+    color: #5a4a38;
+    line-height: 2.2;
+  }
+  .contact-info h3 {
+    font-family: 'Playfair Display', serif;
+    color: #2c2418;
+    margin-bottom: 10px;
+  }
+  .social-links { margin-top: 20px; }
+  .social-links a {
+    display: inline-block;
+    width: 42px;
+    height: 42px;
+    background: #fff8ee;
+    border-radius: 50%;
+    margin-right: 8px;
+    text-align: center;
+    line-height: 42px;
+    color: #5a4a38;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: 700;
+    border: 1px solid #dcc8a0;
+    transition: all 0.2s;
+  }
+  .social-links a:hover {
+    background: #8b2500;
+    color: #f5f0e8;
+    border-color: #8b2500;
+  }
+
+  /* === FOOTER === */
+  footer {
+    background: #2c2418;
+    text-align: center;
+    padding: 35px;
+    color: #8b7355;
+    font-size: 13px;
+    letter-spacing: 1px;
+    border-top: 3px solid #8b2500;
+  }
+  footer a { color: #c4b69c; text-decoration: none; }
+
+  /* === RESPONSIVE === */
+  @media (max-width: 768px) {
+    .about-content, .contact-content { flex-direction: column; }
+    .about-photo { width: 100%; height: 220px; }
+    .gallery-grid { grid-template-columns: 1fr 1fr; }
+    .gallery-item:first-child { grid-column: span 2; height: 200px; }
+    .hero h1 { font-size: 42px; letter-spacing: 4px; }
+    .show-item { flex-direction: column; text-align: center; gap: 10px; }
+    .show-venue { margin-left: 0; }
+    nav { display: none; }
+    .logo { font-size: 26px; }
+  }
+</style>
+</head>
+<body class="lang-de">
+
+<!-- LANGUAGE TOGGLE -->
+<div class="lang-toggle">
+  <button id="btn-en" onclick="setLang('en')">EN</button>
+  <button id="btn-de" class="active" onclick="setLang('de')">DE</button>
+</div>
+
+<!-- ==================== HEADER ==================== -->
+<header>
+  <div class="logo">O<span>'</span>Clock</div>
+  <nav>
+    <a href="#about"><span data-lang="en">About</span><span data-lang="de">Über uns</span></a>
+    <a href="#music"><span data-lang="en">Music</span><span data-lang="de">Musik</span></a>
+    <a href="#shows"><span data-lang="en">Shows</span><span data-lang="de">Auftritte</span></a>
+    <a href="#gallery"><span data-lang="en">Gallery</span><span data-lang="de">Galerie</span></a>
+    <a href="#contact"><span data-lang="en">Contact</span><span data-lang="de">Kontakt</span></a>
+  </nav>
+</header>
+
+<!-- ==================== HERO ==================== -->
+<div class="hero">
+  <div class="hero-placeholder">📷 Band hero photo — vintage/analog feel recommended</div>
+  <h1>O'Clock</h1>
+  <p class="tagline" data-lang="en">Classic Rock · Timeless Sound</p>
+  <p class="tagline" data-lang="de">Classic Rock · Zeitloser Sound</p>
+  <p class="sub-tagline" data-lang="en">The golden era of rock, live from Lower Austria</p>
+  <p class="sub-tagline" data-lang="de">Die goldene Ära des Rock, live aus Niederösterreich</p>
+  <a href="#music" class="cta-btn" data-lang="en">▶ Listen Now</a>
+  <a href="#music" class="cta-btn" data-lang="de">▶ Jetzt Anhören</a>
+</div>
+
+<!-- ==================== ABOUT ==================== -->
+<div class="divider"></div>
+<section id="about">
+  <h2 data-lang="en">About the Band</h2>
+  <h2 data-lang="de">Über die Band</h2>
+  <p class="subtitle" data-lang="en">Keeping the '60s & '70s alive since 20XX</p>
+  <p class="subtitle" data-lang="de">Den Sound der 60er & 70er am Leben halten — seit 20XX</p>
+  <div class="about-content">
+    <div class="about-photo">📷 Band group photo</div>
+    <div>
+      <div data-lang="en">
+        <div class="about-text">
+          <p>O'Clock brings the sound of the '60s and '70s back to life — raw, loud, and unapologetically analog. From Hendrix to Zeppelin, Creedence to the Stones, the Beatles and beyond — we play the classics the way they were meant to be heard: live, loud, and with feeling.</p>
+          <p>Based in the Wiener Neustadt area, we've been rocking stages across Lower Austria, bringing that old-school Americana-tinged classic rock to every Gasthaus, festival, and venue that'll have us.</p>
+        </div>
+        <ul class="members">
+          <li>🎸 <strong>Member 1</strong> — Lead Guitar / Vocals</li>
+          <li>🎸 <strong>Member 2 (Juan)</strong> — Bass</li>
+          <li>🥁 <strong>Member 3</strong> — Drums</li>
+          <li>🎤 <strong>Member 4</strong> — Vocals / Rhythm Guitar</li>
+        </ul>
+      </div>
+      <div data-lang="de">
+        <div class="about-text">
+          <p>O'Clock erweckt den Sound der 60er und 70er zum Leben — roh, laut und kompromisslos analog. Von Hendrix bis Zeppelin, Creedence bis Rolling Stones, den Beatles und mehr — wir spielen die Klassiker so, wie sie gedacht waren: live, laut und mit Gefühl.</p>
+          <p>Aus der Gegend rund um Wiener Neustadt bringen wir Old-School Classic Rock mit Americana-Einschlag auf jede Bühne in Niederösterreich — ob Gasthaus, Festival oder Konzertsaal.</p>
+        </div>
+        <ul class="members">
+          <li>🎸 <strong>Mitglied 1</strong> — Leadgitarre / Gesang</li>
+          <li>🎸 <strong>Mitglied 2 (Juan)</strong> — Bass</li>
+          <li>🥁 <strong>Mitglied 3</strong> — Schlagzeug</li>
+          <li>🎤 <strong>Mitglied 4</strong> — Gesang / Rhythmusgitarre</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== MUSIC ==================== -->
+<div class="divider"></div>
+<section id="music">
+  <h2 data-lang="en">Music</h2>
+  <h2 data-lang="de">Musik</h2>
+  <p class="subtitle" data-lang="en">Our sound — covers & originals</p>
+  <p class="subtitle" data-lang="de">Unser Sound — Covers & Eigenes</p>
+  <div class="tracks">
+    <div class="track-card">
+      <div class="album-art">📷 Cover art</div>
+      <h3>Song Title 1</h3>
+      <p>Cover · Originally by CCR</p>
+      <div class="play-bar"></div>
+    </div>
+    <div class="track-card">
+      <div class="album-art">📷 Cover art</div>
+      <h3>Song Title 2</h3>
+      <p>Cover · Originally by Deep Purple</p>
+      <div class="play-bar"></div>
+    </div>
+    <div class="track-card">
+      <div class="album-art">📷 Cover art</div>
+      <h3>Song Title 3</h3>
+      <p>Original · O'Clock 2025</p>
+      <div class="play-bar"></div>
+    </div>
+  </div>
+  <p class="streaming-note" data-lang="en">🎧 Also available on Spotify, YouTube & SoundCloud</p>
+  <p class="streaming-note" data-lang="de">🎧 Auch auf Spotify, YouTube & SoundCloud verfügbar</p>
+</section>
+
+<!-- ==================== SHOWS ==================== -->
+<div class="divider"></div>
+<section id="shows">
+  <h2 data-lang="en">Upcoming Shows</h2>
+  <h2 data-lang="de">Nächste Auftritte</h2>
+  <p class="subtitle" data-lang="en">Catch us live across Lower Austria</p>
+  <p class="subtitle" data-lang="de">Live in Niederösterreich erleben</p>
+  <div class="shows-list">
+    <div class="show-item">
+      <span class="show-date">MÄR 15, 2026</span>
+      <div class="show-venue">
+        <h4>Gasthaus zum Goldenen Adler</h4>
+        <p>Wiener Neustadt</p>
+      </div>
+      <a href="#" class="ticket-btn" data-lang="en">Free Entry</a>
+      <a href="#" class="ticket-btn" data-lang="de">Eintritt Frei</a>
+    </div>
+    <div class="show-item">
+      <span class="show-date">APR 05, 2026</span>
+      <div class="show-venue">
+        <h4>Arena Bar</h4>
+        <p>Baden bei Wien</p>
+      </div>
+      <a href="#" class="ticket-btn" data-lang="en">Tickets</a>
+      <a href="#" class="ticket-btn" data-lang="de">Karten</a>
+    </div>
+    <div class="show-item">
+      <span class="show-date">MAI 23, 2026</span>
+      <div class="show-venue">
+        <h4>Stadtfest</h4>
+        <p>Neunkirchen</p>
+      </div>
+      <a href="#" class="ticket-btn" data-lang="en">Free Entry</a>
+      <a href="#" class="ticket-btn" data-lang="de">Eintritt Frei</a>
+    </div>
+    <div class="show-item">
+      <span class="show-date">JUN 14, 2026</span>
+      <div class="show-venue">
+        <h4>Sommernachtsfest</h4>
+        <p>Mödling</p>
+      </div>
+      <a href="#" class="ticket-btn" data-lang="en">Details TBA</a>
+      <a href="#" class="ticket-btn" data-lang="de">Details folgen</a>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== GALLERY ==================== -->
+<div class="divider"></div>
+<section id="gallery">
+  <h2 data-lang="en">Gallery</h2>
+  <h2 data-lang="de">Galerie</h2>
+  <p class="subtitle" data-lang="en">On stage & behind the scenes</p>
+  <p class="subtitle" data-lang="de">Auf der Bühne & hinter den Kulissen</p>
+  <div class="gallery-grid">
+    <div class="gallery-item">📷 Featured live shot</div>
+    <div class="gallery-item">📷 Rehearsal</div>
+    <div class="gallery-item">📷 Backstage</div>
+    <div class="gallery-item">📷 Crowd shot</div>
+    <div class="gallery-item">📷 Gear close-up</div>
+  </div>
+</section>
+
+<!-- ==================== CONTACT ==================== -->
+<div class="divider"></div>
+<section id="contact">
+  <h2 data-lang="en">Get in Touch</h2>
+  <h2 data-lang="de">Kontakt</h2>
+  <p class="subtitle" data-lang="en">Bookings, collabs, or just say hi</p>
+  <p class="subtitle" data-lang="de">Buchungen, Zusammenarbeit, oder einfach Hallo sagen</p>
+  <div class="contact-content">
+    <div class="contact-form" data-lang="en">
+      <input type="text" placeholder="Your Name">
+      <input type="email" placeholder="Your Email">
+      <input type="text" placeholder="Subject">
+      <textarea placeholder="Your message..."></textarea>
+      <button>Send Message</button>
+    </div>
+    <div class="contact-form" data-lang="de">
+      <input type="text" placeholder="Ihr Name">
+      <input type="email" placeholder="Ihre E-Mail">
+      <input type="text" placeholder="Betreff">
+      <textarea placeholder="Ihre Nachricht..."></textarea>
+      <button>Nachricht Senden</button>
+    </div>
+    <div class="contact-info">
+      <h3 data-lang="en">Reach Us</h3>
+      <h3 data-lang="de">So erreicht ihr uns</h3>
+      <p>📧 booking@oclock-rock.at</p>
+      <p>📍 <span data-lang="en">Wiener Neustadt area, Lower Austria</span><span data-lang="de">Raum Wiener Neustadt, Niederösterreich</span></p>
+      <div class="social-links">
+        <a href="#">IG</a>
+        <a href="#">YT</a>
+        <a href="#">FB</a>
+      </div>
+      <p style="margin-top: 20px; font-size: 13px; color: #8b7355; font-style: italic;">
+        <span data-lang="en">For booking: include event date, venue, and expected audience size.</span>
+        <span data-lang="de">Für Buchungen: bitte Datum, Veranstaltungsort und erwartete Besucherzahl angeben.</span>
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <p>© 2026 O'Clock · <span data-lang="en">Classic Rock from Lower Austria</span><span data-lang="de">Classic Rock aus Niederösterreich</span></p>
+  <p style="margin-top: 8px; font-size: 12px; color: #6b5b45;">
+    <span data-lang="en">It's always Rock O'Clock somewhere.</span>
+    <span data-lang="de">Es ist immer irgendwo Rock O'Clock.</span>
+  </p>
+</footer>
+
+<!-- LANGUAGE TOGGLE + SECTION VISIBILITY SCRIPT -->
+<script>
+// ============================================
+// SECTION TOGGLE — set to false to hide a section
+// ============================================
+const SECTIONS = {
+  about:   true,
+  music:   true,
+  shows:   false,   // hidden until we have confirmed events
+  gallery: true,
+  contact: true,
+};
+
+// Apply section visibility
+document.addEventListener('DOMContentLoaded', () => {
+  Object.entries(SECTIONS).forEach(([id, visible]) => {
+    if (!visible) {
+      const section = document.getElementById(id);
+      if (section) {
+        // Hide the section and its preceding divider
+        const prev = section.previousElementSibling;
+        if (prev && prev.classList.contains('divider')) prev.style.display = 'none';
+        section.style.display = 'none';
+      }
+      // Also hide the nav link
+      document.querySelectorAll(`nav a[href="#${id}"]`).forEach(a => a.style.display = 'none');
+    }
+  });
+});
+
+function setLang(lang) {
+  document.body.classList.toggle('lang-de', lang === 'de');
+  document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+  document.getElementById('btn-de').classList.toggle('active', lang === 'de');
+  document.documentElement.lang = lang;
+}
+</script>
+
+</body>
+</html>
