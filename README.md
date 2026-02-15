@@ -1,41 +1,58 @@
 # O'Clock — Band Website
 
 ## What
-Website mockup for O'Clock, a classic rock cover band based in the Wiener Neustadt area, Lower Austria. Bilingual (DE/EN), single-page, self-contained HTML.
+Website for O'Clock, a classic rock cover band based in the Wiener Neustadt area, Lower Austria. Bilingual (DE/EN), single-page, self-contained HTML.
 
 ## Status
-**Mockup v2 — complete & shared for feedback** (2025-02-14)
+**v3 — Live on GitHub Pages** (2026-02-15)
 
-## Decisions
-- **Bilingual**: German default (Austria), English toggle via button top-right
-- **Self-contained**: Single HTML file, no external dependencies except Google Fonts
-- **Design**: Dark/warm palette (#2c2418 base, #8b2500 accent), Playfair Display + Source Sans 3
-- **Sections**: Hero → About → Music → Shows → Gallery → Contact
-- **Placeholder content**: All images are dashed-border placeholders, band members listed as "Member 1-4", show dates are fictional
-- **Future hosting**: GitHub Pages (Juan needs to set up repo or give me access)
+## Live URL
+https://sybil-oracle.github.io/oclock-website/
 
-## Architecture
-- Single HTML file with embedded CSS + JS
-- Language toggle via `body.lang-de` class + `data-lang` attributes
-- Fully responsive (mobile-friendly)
-- Contact form is visual only (no backend)
+## GitHub Repo
+https://github.com/sybil-oracle/oclock-website (public)
 
-## Bug Fixes Applied
-- **v2**: `<a>` tags with `data-lang` weren't hiding properly — `.cta-btn` `display: inline-block` overrode lang rules. Fixed with `!important` and adding `a` to element-specific selectors.
-- **v2**: German contact form lost flex layout — `display: block !important` from lang rules overrode `.contact-form` flex. Added specific `.contact-form[data-lang="de"]` rule.
+## Changes in v3
+- Background color changed from cream (#f5f0e8) to warm orange (#EAA741) per band feedback
+- Added Beatles mention in About text
+- Fixed nav bar contact button hidden behind language toggle (added nav padding)
+- Added section toggle system (JS config at bottom of index.html)
+- Adjusted card/placeholder colors for contrast against new background
+- Removed mockup note badges
+- Shows section hidden by default (toggle in JS)
 
-## Assets (Google Drive)
-- **Folder**: `Band Website Mockups` (ID: `14tmgw455EsTRTQbPnDjIdQfWTsVRPZlx`)
-- Files:
-  - `Band Website Mockup.html` — v1 (original)
-  - `O'Clock Website Mockup.html` — v2 (intermediate)
-  - `O'Clock Website Mockup v2 - FINAL.html` — v2 final (DE default, all fixes)
+## Section Toggle System
+At the bottom of `index.html`, there's a `SECTIONS` config object:
+```js
+const SECTIONS = {
+  about:   true,
+  music:   true,
+  shows:   false,   // hidden until confirmed events
+  gallery: true,
+  contact: true,
+};
+```
+Set any section to `false` to hide it (and its nav link).
+
+## Media Workflow
+1. **Google Drive upload folder**: [O'Clock Website Media](https://drive.google.com/drive/folders/1OULSrjzGF8ZUcpnN_Jsi7i1YT2i6_XxO)
+   - Subfolders: `hero/`, `about/`, `gallery/`, `music/`, `members/`
+   - Band members can upload directly; see README in folder for naming convention
+2. **Sync to repo**: Tell Sybil "new photos uploaded" → pulls from Drive, commits to repo
+3. **GitHub Pages auto-deploys** on push
+
+## Drive Folder IDs
+- Media root: `1OULSrjzGF8ZUcpnN_Jsi7i1YT2i6_XxO`
+- hero: `1c7rCa1Cgw4SSd-wp0J2TMjdeZgqAreBz`
+- about: `18_0aTAkYPVKnn-By41klH7pEABCJVvuR`
+- gallery: `1jcVIKrvZM0z6h9nDk0699unhXbmV8PsV`
+- music: `1MrelyGvrIYT1r1nOh2k8yBW-qjfiOTz8`
+- members: `1FKBK-bu_ugNzGeu9YpbPe96GhOdRnx8I`
 
 ## Next Steps
-- [ ] Collect feedback from bandmates
-- [ ] Replace placeholder images with real band photos
+- [ ] Enable GitHub Pages (Juan needs to do this manually — Settings > Pages > main branch)
+- [ ] Add custom domain (oclock-rock.at or similar)
+- [ ] Replace placeholder images with real photos
 - [ ] Fill in real member names, song titles, show dates
-- [ ] Set up GitHub repo + GitHub Pages for permanent hosting
-- [ ] Add real streaming links (Spotify, YouTube, SoundCloud)
-- [ ] Hook up contact form to a backend (Formspree, Netlify Forms, or similar)
-- [ ] Custom domain (e.g., oclock-rock.at)
+- [ ] Hook up contact form backend (Formspree or similar)
+- [ ] Add real streaming links
