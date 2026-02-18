@@ -13,7 +13,7 @@ https://sybil-oracle.github.io/oclock-website/
 https://github.com/sybil-oracle/oclock-website (public)
 
 ## Band Members
-- **Freddi** — Lead Guitar
+- **Freddy** — Lead Guitar
 - **Juan** — Bass
 - **Karl** — Vocals / Rhythm Guitar
 - **Christine** — Drums
