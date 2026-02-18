@@ -59,11 +59,14 @@ Set any section to `false` to hide it (and its nav link).
 - music: `1MrelyGvrIYT1r1nOh2k8yBW-qjfiOTz8`
 - members: `1FKBK-bu_ugNzGeu9YpbPe96GhOdRnx8I`
 
-## Next Steps
-- [ ] Add custom domain (oclock-rock.at or similar)
+## Next Steps (parked)
+- [ ] Set up contact form + route submissions to someone’s email
+- [ ] Update band photo (current one still has the old guitarist)
+- [ ] Buy + set up custom domain name
+
+## Future Ideas
 - [ ] Create social media accounts (IG, YT, FB) and unhide links
-- [ ] Upload to streaming platforms and update "Bald" note
+- [ ] Upload to streaming platforms and update the "Bald" / "Coming soon" note
 - [ ] Fill in real show dates and enable Shows section
-- [ ] Get more member photos for a dedicated members section
-- [ ] Hook up contact form backend (Formspree or similar)
 - [ ] Add more gallery photos as gigs happen
+- [ ] Get more member photos for a dedicated members section
