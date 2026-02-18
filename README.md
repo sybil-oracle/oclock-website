@@ -4,7 +4,7 @@
 Website for O'Clock, a classic rock cover band based in the Wiener Neustadt area, Lower Austria. Bilingual (DE/EN), single-page, self-contained HTML.
 
 ## Status
-**v3 — Live on GitHub Pages** (2026-02-15)
+**v4 — Live on GitHub Pages** (2026-02-18)
 
 ## Live URL
 https://sybil-oracle.github.io/oclock-website/
@@ -12,14 +12,24 @@ https://sybil-oracle.github.io/oclock-website/
 ## GitHub Repo
 https://github.com/sybil-oracle/oclock-website (public)
 
-## Changes in v3
-- Background color changed from cream (#f5f0e8) to warm orange (#EAA741) per band feedback
-- Added Beatles mention in About text
-- Fixed nav bar contact button hidden behind language toggle (added nav padding)
-- Added section toggle system (JS config at bottom of index.html)
-- Adjusted card/placeholder colors for contrast against new background
-- Removed mockup note badges
-- Shows section hidden by default (toggle in JS)
+## Band Members
+- **Freddi** — Lead Guitar
+- **Juan** — Bass
+- **Karl** — Vocals / Rhythm Guitar
+- **Christine** — Drums
+
+## Changes in v4
+- Replaced all placeholder images with real media from Google Drive
+- Hero: band logo (cropped tight, larger display)
+- About: real group photo
+- Gallery: 6 live shots (Sollenau Rock + Traiskirchen) with hover zoom
+- Music: 3 playable audio tracks (Jumping Jack Flash, Born to Be Wild, Ain't No Sunshine) with native HTML audio players
+- Real member names added (both DE/EN)
+- Streaming note changed to "Bald" / "Coming soon" (not yet on platforms)
+- Section dividers darkened for visibility against orange background
+- Social media links hidden (no accounts yet)
+- Booking note restyled for better readability (dark brown, bold)
+- Music section subtitle changed to "Live recordings"
 
 ## Section Toggle System
 At the bottom of `index.html`, there's a `SECTIONS` config object:
@@ -50,9 +60,10 @@ Set any section to `false` to hide it (and its nav link).
 - members: `1FKBK-bu_ugNzGeu9YpbPe96GhOdRnx8I`
 
 ## Next Steps
-- [ ] Enable GitHub Pages (Juan needs to do this manually — Settings > Pages > main branch)
 - [ ] Add custom domain (oclock-rock.at or similar)
-- [ ] Replace placeholder images with real photos
-- [ ] Fill in real member names, song titles, show dates
+- [ ] Create social media accounts (IG, YT, FB) and unhide links
+- [ ] Upload to streaming platforms and update "Bald" note
+- [ ] Fill in real show dates and enable Shows section
+- [ ] Get more member photos for a dedicated members section
 - [ ] Hook up contact form backend (Formspree or similar)
-- [ ] Add real streaming links
+- [ ] Add more gallery photos as gigs happen
