@@ -115,19 +115,14 @@
     top: 0; left: 0; right: 0; bottom: 0;
     background: radial-gradient(ellipse at center, rgba(139,37,0,0.15) 0%, transparent 70%);
   }
-  .hero-placeholder {
+  .hero-img {
     width: 100%;
     max-width: 750px;
-    height: 280px;
-    background: #3d3225;
-    border: 2px dashed #6b5b45;
+    max-height: 400px;
+    object-fit: contain;
     border-radius: 8px;
     margin: 0 auto 35px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #8b7355;
-    font-size: 16px;
+    display: block;
     position: relative;
   }
   .hero h1 {
@@ -215,15 +210,15 @@
   .about-photo {
     width: 320px;
     height: 320px;
-    background: #fff4e6;
-    border: 2px dashed #c4a060;
     border-radius: 8px;
     flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #8b7355;
-    font-size: 14px;
+    overflow: hidden;
+  }
+  .about-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
   }
   .about-text p {
     color: #5a4a38;
@@ -255,18 +250,10 @@
     padding: 25px;
     border: 1px solid #dcc8a0;
   }
-  .track-card .album-art {
+  .track-card audio {
     width: 100%;
-    height: 150px;
-    background: #f0e0c8;
-    border: 2px dashed #c4a060;
-    border-radius: 6px;
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #8b7355;
-    font-size: 13px;
+    margin-top: 14px;
+    height: 40px;
   }
   .track-card h3 {
     font-family: 'Playfair Display', serif;
@@ -274,22 +261,7 @@
     color: #2c2418;
   }
   .track-card p { color: #8b7355; font-size: 14px; }
-  .play-bar {
-    margin-top: 14px;
-    height: 4px;
-    background: #dcc8a0;
-    border-radius: 2px;
-    position: relative;
-  }
-  .play-bar::after {
-    content: '';
-    position: absolute;
-    left: 0; top: 0;
-    width: 40%;
-    height: 100%;
-    background: #8b2500;
-    border-radius: 2px;
-  }
+  /* play-bar removed — using native audio player */
   .streaming-note {
     margin-top: 25px;
     text-align: center;
@@ -356,14 +328,18 @@
   }
   .gallery-item {
     height: 190px;
-    background: #fff4e6;
-    border: 2px dashed #c4a060;
     border-radius: 8px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #8b7355;
-    font-size: 13px;
+    overflow: hidden;
+  }
+  .gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    transition: transform 0.3s;
+  }
+  .gallery-item img:hover {
+    transform: scale(1.05);
   }
   .gallery-item:first-child {
     grid-column: span 2;
@@ -493,7 +469,7 @@
 
 <!-- ==================== HERO ==================== -->
 <div class="hero">
-  <div class="hero-placeholder">📷 Band hero photo — vintage/analog feel recommended</div>
+  <img src="assets/hero/logo-hero.jpg" alt="O'Clock Band Logo" class="hero-img">
   <h1>O'Clock</h1>
   <p class="tagline" data-lang="en">Classic Rock · Timeless Sound</p>
   <p class="tagline" data-lang="de">Classic Rock · Zeitloser Sound</p>
@@ -511,7 +487,7 @@
   <p class="subtitle" data-lang="en">Keeping the '60s & '70s alive since 20XX</p>
   <p class="subtitle" data-lang="de">Den Sound der 60er & 70er am Leben halten — seit 20XX</p>
   <div class="about-content">
-    <div class="about-photo">📷 Band group photo</div>
+    <div class="about-photo"><img src="assets/about/group-photo.jpg" alt="O'Clock Band"></div>
     <div>
       <div data-lang="en">
         <div class="about-text">
@@ -550,22 +526,25 @@
   <p class="subtitle" data-lang="de">Unser Sound — Covers & Eigenes</p>
   <div class="tracks">
     <div class="track-card">
-      <div class="album-art">📷 Cover art</div>
-      <h3>Song Title 1</h3>
-      <p>Cover · Originally by CCR</p>
-      <div class="play-bar"></div>
+      <h3>Jumping Jack Flash</h3>
+      <p>Cover · Originally by The Rolling Stones</p>
+      <audio controls preload="none">
+        <source src="assets/music/jumping-jack-flash.mp3" type="audio/mpeg">
+      </audio>
     </div>
     <div class="track-card">
-      <div class="album-art">📷 Cover art</div>
-      <h3>Song Title 2</h3>
-      <p>Cover · Originally by Deep Purple</p>
-      <div class="play-bar"></div>
+      <h3>Born to Be Wild</h3>
+      <p>Cover · Originally by Steppenwolf</p>
+      <audio controls preload="none">
+        <source src="assets/music/born-to-be-wild.mp3" type="audio/mpeg">
+      </audio>
     </div>
     <div class="track-card">
-      <div class="album-art">📷 Cover art</div>
-      <h3>Song Title 3</h3>
-      <p>Original · O'Clock 2025</p>
-      <div class="play-bar"></div>
+      <h3>Ain't No Sunshine</h3>
+      <p>Cover · Originally by Bill Withers</p>
+      <audio controls preload="none">
+        <source src="assets/music/aint-no-sunshine.mp3" type="audio/mpeg">
+      </audio>
     </div>
   </div>
   <p class="streaming-note" data-lang="en">🎧 Also available on Spotify, YouTube & SoundCloud</p>
@@ -627,11 +606,12 @@
   <p class="subtitle" data-lang="en">On stage & behind the scenes</p>
   <p class="subtitle" data-lang="de">Auf der Bühne & hinter den Kulissen</p>
   <div class="gallery-grid">
-    <div class="gallery-item">📷 Featured live shot</div>
-    <div class="gallery-item">📷 Rehearsal</div>
-    <div class="gallery-item">📷 Backstage</div>
-    <div class="gallery-item">📷 Crowd shot</div>
-    <div class="gallery-item">📷 Gear close-up</div>
+    <div class="gallery-item"><img src="assets/gallery/01-live-sollenau-rock.jpg" alt="Live at Sollenau Rock"></div>
+    <div class="gallery-item"><img src="assets/gallery/02-live-sollenau-rock.jpg" alt="Live at Sollenau Rock"></div>
+    <div class="gallery-item"><img src="assets/gallery/03-live-sollenau-rock.jpg" alt="Live at Sollenau Rock"></div>
+    <div class="gallery-item"><img src="assets/gallery/04-live-sollenau-rock.jpg" alt="Live at Sollenau Rock"></div>
+    <div class="gallery-item"><img src="assets/gallery/05-live-traiskirchen.jpg" alt="Live at Traiskirchen"></div>
+    <div class="gallery-item"><img src="assets/gallery/06-live-sollenau-rock.jpg" alt="Live at Sollenau Rock"></div>
   </div>
 </section>
 
